@@ -1,0 +1,16 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.database.mapper.SchoolMapper">
+
+    <resultMap id="school" type="org.example.database.entity.School">
+        <id column="name" jdbcType="BIGINT" property="name"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectList" resultMap="school" parameterType="integer">
+        select * from school
+        <where>
+            <if test="param != null">
+                id = #{id}
+            </if>
+        </where>
+    </select>
+</mapper>
