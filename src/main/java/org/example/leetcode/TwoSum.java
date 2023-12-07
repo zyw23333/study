@@ -20,11 +20,35 @@ public class TwoSum {
         return code;
     }
 
+    public static void moveZeroes(int[] nums) {
+        if (nums.length < 2) {
+            return;
+        }
+        int startzero = -1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) {
+                startzero = startzero == -1 ? i : startzero;
+                continue;
+            }
+            if (startzero!= -1) {
+                swap(nums, startzero, i);
+                startzero += 1;
+            }
+        }
+    }
+
+    public static void swap(int[] nums, int start, int end) {
+        int temp = nums[start];
+        nums[start] = nums[end];
+        nums[end] = temp;
+    }
+
     public static void main(String[] args) {
 //        int[] result = twoSum(new int[]{2, 7, 11, 15}, 9);
-        int[] result = twoSum(new int[]{3,2,4}, 6);
-        for(int i : result) {
-            System.out.println(i);
+        int[] result = new int[]{4,2,4,4,3,0,0,0,5,1,0};
+        moveZeroes(result);
+        for (int i = 0; i < result.length; i++) {
+            System.out.println(result[i]);
         }
     }
 }
