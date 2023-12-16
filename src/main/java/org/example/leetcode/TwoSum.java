@@ -36,6 +36,28 @@ public class TwoSum {
             }
         }
     }
+    //在排序数组中查找元素的第一个和最后一个位置
+    public static int[] searchRange(int[] nums, int target) {
+        int start = lowerBound(nums,target);
+        if (start == nums.length || nums[start] != target){
+            return new int[]{-1,-1};
+        }
+        int end = lowerBound(nums,target+1);
+        return new int[]{start,end-1};
+    }
+
+    public static int lowerBound(int[] nums, int target){
+        int start = 0,end = nums.length-1;
+        while (start <= end){
+            int mid = (start + end)/2;
+            if (nums[mid] < target){
+                start = mid + 1;
+            }else {
+                end = mid - 1;
+            }
+        }
+        return start;
+    }
 
     public static void swap(int[] nums, int start, int end) {
         int temp = nums[start];
@@ -44,11 +66,11 @@ public class TwoSum {
     }
 
     public static void main(String[] args) {
-//        int[] result = twoSum(new int[]{2, 7, 11, 15}, 9);
-        int[] result = new int[]{4,2,4,4,3,0,0,0,5,1,0};
-        moveZeroes(result);
-        for (int i = 0; i < result.length; i++) {
-            System.out.println(result[i]);
+        int[] nums = new int[]{1,2,5,7,7,7};
+        int[] ans = searchRange(nums, 8);
+        for (int i = 0; i < ans.length; i++){
+            System.out.println(ans[i]);
         }
+
     }
 }
