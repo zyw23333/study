@@ -1,6 +1,7 @@
 package org.example.leetcode;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class TwoSum {
@@ -90,12 +91,72 @@ public class TwoSum {
         return mid;
     }
 
-    public static void main(String[] args) {
-        int[] nums = new int[]{1,2,5,7,7,7};
-        int[] ans = searchRange(nums, 8);
-        for (int i = 0; i < ans.length; i++){
-            System.out.println(ans[i]);
+
+    //【有效的数独】请你判断一个 9 x 9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可
+    public static boolean isValidSudoku(char[][] board) {
+        HashMap<Integer, HashSet<Character>> rowHashMap = new HashMap<>();
+        HashMap<Integer, HashSet<Character>> columHashMap = new HashMap<>();
+        HashMap<Integer, HashSet<Character>> subHashMap = new HashMap<>();
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++){
+                if (board[i][j] == '.'){
+                    continue;
+                }
+                //检查行
+                if (rowHashMap.containsKey(i)){
+                    if (rowHashMap.get(i).contains(board[i][j])){
+                        return false;
+                    }else {
+                        rowHashMap.get(i).add(board[i][j]);
+                    }
+                }else {
+                    rowHashMap.put(i,new HashSet<>());
+                    rowHashMap.get(i).add(board[i][j]);
+                }
+                //检查列
+                if (columHashMap.containsKey(j)){
+                    if (columHashMap.get(j).contains(board[i][j])){
+                        return false;
+                    }else {
+                        columHashMap.get(j).add(board[i][j]);
+                    }
+                }else {
+                    columHashMap.put(j,new HashSet<>());
+                    columHashMap.get(j).add(board[i][j]);
+                }
+                //检查小方块
+                Integer pos = i / 3 * 3 + j / 3;
+                if (subHashMap.containsKey(pos)){
+                    if (subHashMap.get(pos).contains(board[i][j])){
+                        return false;
+                    }else {
+                        subHashMap.get(pos).add(board[i][j]);
+                    }
+                }else {
+                    subHashMap.put(pos,new HashSet<>());
+                    subHashMap.get(pos).add(board[i][j]);
+                }
+            }
         }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        char[][] test = new char[][]{
+                {'8','3','.','.','7','.','.','.','.'},
+                {'6','.','.','1','9','5','.','.','.'},
+                {'.','9','8','.','.','.','.','6','.'},
+                {'8','.','.','.','6','.','.','.','3'},
+                {'4','.','.','8','.','3','.','.','1'},
+                {'7','.','.','.','2','.','.','.','6'},
+                {'.','6','.','.','.','.','2','8','.'},
+                {'.','.','.','4','1','9','.','.','5'},
+                {'.','.','.','.','8','.','.','7','9'}};
+
+        System.out.println(isValidSudoku(test));;
 
     }
+
+
 }
