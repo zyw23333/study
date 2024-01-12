@@ -142,6 +142,43 @@ public class TwoSum {
         return true;
     }
 
+
+    //外观数列
+    public static String countAndSay(int n) {
+        String s = "1";
+        if (n == 1){
+            return  s;
+        }
+        int i = 2;
+        while (i <= n){
+            StringBuffer stringBuffer = new StringBuffer();
+
+            char[] chars = s.toCharArray();
+            char c = chars[0];
+            int number = 0;
+            for (int j = 0; j < chars.length; j++) {
+                if (c == chars[j]){
+                    number++;
+                }else{
+                    stringBuffer.append(number);
+                    stringBuffer.append(chars[j-1]);
+                    number = 1;
+                    c = chars[j];
+                }
+                if (j == chars.length - 1){
+                    stringBuffer.append(number);
+                    stringBuffer.append(chars[j]);
+                }
+            }
+            s = stringBuffer.toString();
+            i++;
+        }
+        return s;
+
+    }
+
+
+
     public static void main(String[] args) {
         char[][] test = new char[][]{
                 {'8','3','.','.','7','.','.','.','.'},
@@ -154,7 +191,8 @@ public class TwoSum {
                 {'.','.','.','4','1','9','.','.','5'},
                 {'.','.','.','.','8','.','.','7','9'}};
 
-        System.out.println(isValidSudoku(test));;
+        String ans = countAndSay(6);
+        System.out.println(ans);
 
     }
 
