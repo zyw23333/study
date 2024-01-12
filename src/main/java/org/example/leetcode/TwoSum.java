@@ -1,7 +1,11 @@
 package org.example.leetcode;
 
+import com.alibaba.fastjson.JSON;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 public class TwoSum {
@@ -177,6 +181,44 @@ public class TwoSum {
 
     }
 
+//数组总和
+    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        for (int i = 0; i < candidates.length; i++) {
+            ArrayList<Integer> subList = new ArrayList<>();
+            ans = findCombination(i, ans, candidates,subList,target);
+        }
+        return ans;
+
+    }
+
+    public static List<List<Integer>> findCombination(int index, List<List<Integer>> ans,int[] candidates,List<Integer> subList,int target) {
+        int sum = 0;
+        for(int ele : subList){
+            sum += ele;
+        }
+        if (sum == target){
+            if (!ans.contains(subList)) {
+                ans.add(subList);
+            }
+            return ans;
+        }else if (sum > target){
+            return ans;
+        }
+
+        List<Integer> temp = new ArrayList<>();
+        temp.addAll(subList);
+        temp.add(candidates[index]);
+
+        while (index < candidates.length) {
+            findCombination(index, ans, candidates, temp, target);
+            index++;
+        }
+
+
+        return ans;
+    }
+
 
 
     public static void main(String[] args) {
@@ -191,8 +233,11 @@ public class TwoSum {
                 {'.','.','.','4','1','9','.','.','5'},
                 {'.','.','.','.','8','.','.','7','9'}};
 
-        String ans = countAndSay(6);
-        System.out.println(ans);
+        int[] candidates = {2,3,5};
+        int target = 8;
+        List<List<Integer>> lists = combinationSum(candidates, target);
+        String s = JSON.toJSONString(lists);
+        System.out.println(s);
 
     }
 
