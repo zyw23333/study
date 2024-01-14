@@ -2,6 +2,7 @@ package org.example.leetcode;
 
 import com.alibaba.fastjson.JSON;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -224,40 +225,32 @@ public class TwoSum {
     public static List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList<>();
         Arrays.sort(candidates);
-        for (int i = 0; i < candidates.length; i++) {
-            ArrayList<Integer> subList = new ArrayList<>();
-            ans = findCombination2(i, ans, candidates,subList,target);
-        }
+        findCombination2(0, ans, candidates,new ArrayList<>(),target);
         return ans;
 
     }
 
-    public static List<List<Integer>> findCombination2(int index, List<List<Integer>> ans,int[] candidates,List<Integer> subList,int target) {
-        if (index >= candidates.length){
-            if (getSum(subList) == target && !isRepeat(ans,subList)){
-                ans.add(subList);
-            }
-            return ans;
-        }
+    public static void findCombination2(int index, List<List<Integer>> ans,int[] candidates,List<Integer> subList,int target) {
         int sum = getSum(subList);
         if (sum == target){
-            if (!ans.contains(subList) && !isRepeat(ans,subList)) {
-                ans.add(subList);
-            }
-            return ans;
+            ans.add(new ArrayList<>(subList));
+            return;
         }else if (sum > target){
-            return ans;
+            return;
         }
-
-        List<Integer> temp = new ArrayList<>();
-        temp.addAll(subList);
-        temp.add(candidates[index]);
+        if (index >= candidates.length){
+            return;
+        }
 
         while (index < candidates.length) {
-            findCombination2(index+1, ans, candidates, temp, target);
+            subList.add(candidates[index]);
+            findCombination2(index+1, ans, candidates, subList, target);
+            subList.remove(subList.size() - 1);
+            while (index + 1 < candidates.length && candidates[index + 1] == candidates[index]) {
+                index += 1;
+            }
             index++;
         }
-        return ans;
     }
 
     private static int getSum(List<Integer> subList) {
@@ -277,27 +270,36 @@ public class TwoSum {
         return false;
     }
 
-
-
-    public static void main(String[] args) {
-        char[][] test = new char[][]{
-                {'8','3','.','.','7','.','.','.','.'},
-                {'6','.','.','1','9','5','.','.','.'},
-                {'.','9','8','.','.','.','.','6','.'},
-                {'8','.','.','.','6','.','.','.','3'},
-                {'4','.','.','8','.','3','.','.','1'},
-                {'7','.','.','.','2','.','.','.','6'},
-                {'.','6','.','.','.','.','2','8','.'},
-                {'.','.','.','4','1','9','.','.','5'},
-                {'.','.','.','.','8','.','.','7','9'}};
-
-        int[] candidates = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-        int target = 27;
-        List<List<Integer>> lists = combinationSum2(candidates, target);
-        String s = JSON.toJSONString(lists);
-        System.out.println(s);
-
+    public static List<List<Integer>> customCombine(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(candidates);
+        customRecur(result, new ArrayList<>(), candidates, 0, 0, target);
+        return result;
     }
 
+    public static void customRecur(List<List<Integer>> result, List<Integer> candidate, int[] candidates, int pos, Integer currentSum, Integer targetSum) {
+        if (currentSum == targetSum) {
+            result.add(new ArrayList<>(candidate));
+            return;
+        }
+        for (int i = pos; i < candidates.length; i++) {
+            Integer tempSum = currentSum + candidates[i];
+            if (tempSum > targetSum) {
+                return;
+            }
+            candidate.add(candidates[i]);
+            customRecur(result, candidate, candidates, i+1, tempSum, targetSum);
+            candidate.remove(candidate.size() - 1);
+            while (i + 1 < candidates.length && candidates[i] == candidates[i+1]) {
+                i += 1;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] input = new int[]{1,1,1,2,2,2,2,2,3};
+        List<List<Integer>> result = combinationSum2(input, 8);
+        result.forEach(System.out::println);
+    }
 
 }
