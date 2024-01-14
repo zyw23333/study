@@ -3,6 +3,7 @@ package org.example.leetcode;
 import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -181,7 +182,7 @@ public class TwoSum {
 
     }
 
-//数组总和
+//数组总和1
     public static List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList<>();
         for (int i = 0; i < candidates.length; i++) {
@@ -219,6 +220,63 @@ public class TwoSum {
         return ans;
     }
 
+    //数组总和2
+    public static List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        Arrays.sort(candidates);
+        for (int i = 0; i < candidates.length; i++) {
+            ArrayList<Integer> subList = new ArrayList<>();
+            ans = findCombination2(i, ans, candidates,subList,target);
+        }
+        return ans;
+
+    }
+
+    public static List<List<Integer>> findCombination2(int index, List<List<Integer>> ans,int[] candidates,List<Integer> subList,int target) {
+        if (index >= candidates.length){
+            if (getSum(subList) == target && !isRepeat(ans,subList)){
+                ans.add(subList);
+            }
+            return ans;
+        }
+        int sum = getSum(subList);
+        if (sum == target){
+            if (!ans.contains(subList) && !isRepeat(ans,subList)) {
+                ans.add(subList);
+            }
+            return ans;
+        }else if (sum > target){
+            return ans;
+        }
+
+        List<Integer> temp = new ArrayList<>();
+        temp.addAll(subList);
+        temp.add(candidates[index]);
+
+        while (index < candidates.length) {
+            findCombination2(index+1, ans, candidates, temp, target);
+            index++;
+        }
+        return ans;
+    }
+
+    private static int getSum(List<Integer> subList) {
+        int sum = 0;
+        for (int ele : subList) {
+            sum += ele;
+        }
+        return sum;
+    }
+
+    private static boolean isRepeat(List<List<Integer>> ans, List<Integer> subList ){
+        for (List<Integer> ele : ans){
+            if (ele.containsAll(subList)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
     public static void main(String[] args) {
@@ -233,9 +291,9 @@ public class TwoSum {
                 {'.','.','.','4','1','9','.','.','5'},
                 {'.','.','.','.','8','.','.','7','9'}};
 
-        int[] candidates = {2,3,5};
-        int target = 8;
-        List<List<Integer>> lists = combinationSum(candidates, target);
+        int[] candidates = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+        int target = 27;
+        List<List<Integer>> lists = combinationSum2(candidates, target);
         String s = JSON.toJSONString(lists);
         System.out.println(s);
 
