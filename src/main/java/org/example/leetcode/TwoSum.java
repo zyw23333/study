@@ -296,10 +296,35 @@ public class TwoSum {
         }
     }
 
+
+    //LCP 18. 早餐组合
+    public static int breakfastNumber(int[] staple, int[] drinks, int x) {
+        Arrays.sort(staple);
+        Arrays.sort(drinks);
+        int p = 0,  q = drinks.length - 1;
+        long res = 0;
+        while (p<staple.length && q >= 0){
+            if (staple[p] + drinks[q] <= x){
+                res += q + 1;
+                p++;
+            }else {
+                q--;
+            }
+        }
+         return (int)(res % 1000000007);
+    }
+
+
+
     public static void main(String[] args) {
-        int[] input = new int[]{1,1,1,2,2,2,2,2,3};
-        List<List<Integer>> result = combinationSum2(input, 8);
-        result.forEach(System.out::println);
+        int[] staple = new int[]{2,1,1};
+        int[] drinks = new int[]{8,9,5,1};
+        int i = breakfastNumber(staple, drinks,9);
+        System.out.println(i);
+
+        //result.forEach(System.out::println);
+
+
     }
 
 }
