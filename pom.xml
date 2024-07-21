@@ -59,6 +59,11 @@
             <artifactId>fastjson</artifactId>
             <version>2.0.32</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-exec</artifactId>
+            <version>2.3.4</version>
+        </dependency>
     </dependencies>
 
     <build>

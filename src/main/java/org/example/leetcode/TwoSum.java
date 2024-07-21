@@ -1,14 +1,12 @@
 package org.example.leetcode;
 
 import com.alibaba.fastjson.JSON;
+import org.example.configuration.ListNode;
+import org.springframework.boot.web.client.RootUriTemplateHandler;
 
+import java.math.BigInteger;
 import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TwoSum {
     public static int[] twoSum(int[] nums, int target) {
@@ -296,10 +294,97 @@ public class TwoSum {
         }
     }
 
+    public static String multiply(String num1, String num2) {
+        if ("0".equals(num1) || "0".equals(num2)){
+            return "0";
+        }
+        char[] chars1 = num1.toCharArray();
+        char[] chars2 = num2.toCharArray();
+
+        StringBuilder res = new StringBuilder();
+        int fac = 0;
+        for (int i = chars2.length -1; i >= 0 ; i--) {
+            StringBuilder cur = calInteger(chars1, chars2[i],fac++);
+            res = sumByString(res, cur);
+        }
+
+        return res.toString();
+    }
+
+    private static StringBuilder calInteger(char[] chars1,char multy,int factor) {
+        StringBuilder builder = new StringBuilder();
+        int outNum = 0;
+        for (int i = chars1.length -1; i >=0; i--) {
+            int tem = (int) (chars1[i] - '0' ) * (int) (multy-'0') + outNum;
+            builder.insert(0,tem % 10);
+            outNum = tem /10;
+        }
+        if (outNum != 0){
+            builder.insert(0,outNum);
+        }
+        for (int i = 0; i < factor; i++) {
+            builder.append("0");
+        }
+        return builder;
+    }
+
+    private static StringBuilder sumByString(StringBuilder stringBuilder1, StringBuilder stringBuilder2){
+        StringBuilder maxString = stringBuilder1.length() > stringBuilder2.length() ?  stringBuilder1 : stringBuilder2;
+        StringBuilder minString = stringBuilder1.length() <=  stringBuilder2.length() ? stringBuilder1 : stringBuilder2;
+
+        int maxLen = maxString.length();
+        int minLen = minString.length();
+
+        StringBuilder res = new StringBuilder();
+        long outNum = 0;
+        for (int i = 0; i < maxString.length(); i++){
+            if (i < minString.length()) {
+                long sum = maxString.charAt(maxLen - 1 - i) - '0' + minString.charAt(minLen - 1 -i) -'0' + outNum;
+                res.insert(0,sum % 10);
+                outNum = sum / 10;
+            }else {
+                long sum = maxString.charAt(maxLen - 1 - i) - '0' + outNum;
+                res.insert(0,sum % 10);
+                outNum = sum /10;
+            }
+        }
+        if (outNum != 0){
+            res.insert(0,outNum);
+        }
+        return res;
+    }
+
+    public static ListNode reverseList(ListNode head) {
+        if(head == null) return null;
+        ListNode first = null;
+        while (head != null){
+            ListNode nextNode = head.next;
+            head.next = first;
+            first = head;
+            head = nextNode;
+        }
+        return first;
+    }
+
+
     public static void main(String[] args) {
-        int[] input = new int[]{1,1,1,2,2,2,2,2,3};
-        List<List<Integer>> result = combinationSum2(input, 8);
-        result.forEach(System.out::println);
+        String tes = "ab_a";
+        String replaceStr = tes.replaceAll("[\\W_]+", "").toLowerCase();
+        System.out.println(replaceStr);
+        Random seed = new Random(100);
+        for (int i = 0; i < 20; i++) {
+            System.out.println(seed.nextInt());
+        }
+        ListNode node1 = new ListNode(0);
+        ListNode node2 = new ListNode(2);
+        ListNode node3 = new ListNode(3);
+        ListNode node4 = new ListNode(4);
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        ListNode ans = reverseList(node1);
+
+        //        result.forEach(System.out::println);
     }
 
 }
