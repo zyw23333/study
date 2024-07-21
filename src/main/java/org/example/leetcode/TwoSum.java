@@ -35,29 +35,30 @@ public class TwoSum {
                 startzero = startzero == -1 ? i : startzero;
                 continue;
             }
-            if (startzero!= -1) {
+            if (startzero != -1) {
                 swap(nums, startzero, i);
                 startzero += 1;
             }
         }
     }
+
     //在排序数组中查找元素的第一个和最后一个位置
     public static int[] searchRange(int[] nums, int target) {
-        int start = lowerBound(nums,target);
-        if (start == nums.length || nums[start] != target){
-            return new int[]{-1,-1};
+        int start = lowerBound(nums, target);
+        if (start == nums.length || nums[start] != target) {
+            return new int[] {-1, -1};
         }
-        int end = lowerBound(nums,target+1);
-        return new int[]{start,end-1};
+        int end = lowerBound(nums, target + 1);
+        return new int[] {start, end - 1};
     }
 
-    public static int lowerBound(int[] nums, int target){
-        int start = 0,end = nums.length-1;
-        while (start <= end){
-            int mid = (start + end)/2;
-            if (nums[mid] < target){
+    public static int lowerBound(int[] nums, int target) {
+        int start = 0, end = nums.length - 1;
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            if (nums[mid] < target) {
                 start = mid + 1;
-            }else {
+            } else {
                 end = mid - 1;
             }
         }
@@ -70,31 +71,29 @@ public class TwoSum {
         nums[end] = temp;
     }
 
-
     //【搜索插入的位置】给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
     public static int searchInsert(int[] nums, int target) {
-        int p = 0, q = nums.length-1;
+        int p = 0, q = nums.length - 1;
         int mid = -1;
-        if (nums.length == 1){
-            if (nums[0] == target){
+        if (nums.length == 1) {
+            if (nums[0] == target) {
                 return 0;
             }
             return nums[0] > target ? 0 : 1;
         }
         while (p < q) {
-            mid = (p+q)/2;
-            if (nums[mid] == target){
+            mid = (p + q) / 2;
+            if (nums[mid] == target) {
                 return mid;
             }
-            if (nums[mid] > target){
-                q = mid-1;
-            }else {
-                p = mid+1;
+            if (nums[mid] > target) {
+                q = mid - 1;
+            } else {
+                p = mid + 1;
             }
         }
         return mid;
     }
-
 
     //【有效的数独】请你判断一个 9 x 9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可
     public static boolean isValidSudoku(char[][] board) {
@@ -103,42 +102,42 @@ public class TwoSum {
         HashMap<Integer, HashSet<Character>> subHashMap = new HashMap<>();
 
         for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++){
-                if (board[i][j] == '.'){
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == '.') {
                     continue;
                 }
                 //检查行
-                if (rowHashMap.containsKey(i)){
-                    if (rowHashMap.get(i).contains(board[i][j])){
+                if (rowHashMap.containsKey(i)) {
+                    if (rowHashMap.get(i).contains(board[i][j])) {
                         return false;
-                    }else {
+                    } else {
                         rowHashMap.get(i).add(board[i][j]);
                     }
-                }else {
-                    rowHashMap.put(i,new HashSet<>());
+                } else {
+                    rowHashMap.put(i, new HashSet<>());
                     rowHashMap.get(i).add(board[i][j]);
                 }
                 //检查列
-                if (columHashMap.containsKey(j)){
-                    if (columHashMap.get(j).contains(board[i][j])){
+                if (columHashMap.containsKey(j)) {
+                    if (columHashMap.get(j).contains(board[i][j])) {
                         return false;
-                    }else {
+                    } else {
                         columHashMap.get(j).add(board[i][j]);
                     }
-                }else {
-                    columHashMap.put(j,new HashSet<>());
+                } else {
+                    columHashMap.put(j, new HashSet<>());
                     columHashMap.get(j).add(board[i][j]);
                 }
                 //检查小方块
                 Integer pos = i / 3 * 3 + j / 3;
-                if (subHashMap.containsKey(pos)){
-                    if (subHashMap.get(pos).contains(board[i][j])){
+                if (subHashMap.containsKey(pos)) {
+                    if (subHashMap.get(pos).contains(board[i][j])) {
                         return false;
-                    }else {
+                    } else {
                         subHashMap.get(pos).add(board[i][j]);
                     }
-                }else {
-                    subHashMap.put(pos,new HashSet<>());
+                } else {
+                    subHashMap.put(pos, new HashSet<>());
                     subHashMap.get(pos).add(board[i][j]);
                 }
             }
@@ -146,30 +145,29 @@ public class TwoSum {
         return true;
     }
 
-
     //外观数列
     public static String countAndSay(int n) {
         String s = "1";
-        if (n == 1){
-            return  s;
+        if (n == 1) {
+            return s;
         }
         int i = 2;
-        while (i <= n){
+        while (i <= n) {
             StringBuffer stringBuffer = new StringBuffer();
 
             char[] chars = s.toCharArray();
             char c = chars[0];
             int number = 0;
             for (int j = 0; j < chars.length; j++) {
-                if (c == chars[j]){
+                if (c == chars[j]) {
                     number++;
-                }else{
+                } else {
                     stringBuffer.append(number);
-                    stringBuffer.append(chars[j-1]);
+                    stringBuffer.append(chars[j - 1]);
                     number = 1;
                     c = chars[j];
                 }
-                if (j == chars.length - 1){
+                if (j == chars.length - 1) {
                     stringBuffer.append(number);
                     stringBuffer.append(chars[j]);
                 }
@@ -181,28 +179,29 @@ public class TwoSum {
 
     }
 
-//数组总和1
+    //数组总和1
     public static List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList<>();
         for (int i = 0; i < candidates.length; i++) {
             ArrayList<Integer> subList = new ArrayList<>();
-            ans = findCombination(i, ans, candidates,subList,target);
+            ans = findCombination(i, ans, candidates, subList, target);
         }
         return ans;
 
     }
 
-    public static List<List<Integer>> findCombination(int index, List<List<Integer>> ans,int[] candidates,List<Integer> subList,int target) {
+    public static List<List<Integer>> findCombination(int index, List<List<Integer>> ans, int[] candidates, List<Integer> subList,
+                                                      int target) {
         int sum = 0;
-        for(int ele : subList){
+        for (int ele : subList) {
             sum += ele;
         }
-        if (sum == target){
+        if (sum == target) {
             if (!ans.contains(subList)) {
                 ans.add(subList);
             }
             return ans;
-        }else if (sum > target){
+        } else if (sum > target) {
             return ans;
         }
 
@@ -215,7 +214,6 @@ public class TwoSum {
             index++;
         }
 
-
         return ans;
     }
 
@@ -223,26 +221,26 @@ public class TwoSum {
     public static List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList<>();
         Arrays.sort(candidates);
-        findCombination2(0, ans, candidates,new ArrayList<>(),target);
+        findCombination2(0, ans, candidates, new ArrayList<>(), target);
         return ans;
 
     }
 
-    public static void findCombination2(int index, List<List<Integer>> ans,int[] candidates,List<Integer> subList,int target) {
+    public static void findCombination2(int index, List<List<Integer>> ans, int[] candidates, List<Integer> subList, int target) {
         int sum = getSum(subList);
-        if (sum == target){
+        if (sum == target) {
             ans.add(new ArrayList<>(subList));
             return;
-        }else if (sum > target){
+        } else if (sum > target) {
             return;
         }
-        if (index >= candidates.length){
+        if (index >= candidates.length) {
             return;
         }
 
         while (index < candidates.length) {
             subList.add(candidates[index]);
-            findCombination2(index+1, ans, candidates, subList, target);
+            findCombination2(index + 1, ans, candidates, subList, target);
             subList.remove(subList.size() - 1);
             while (index + 1 < candidates.length && candidates[index + 1] == candidates[index]) {
                 index += 1;
@@ -259,9 +257,9 @@ public class TwoSum {
         return sum;
     }
 
-    private static boolean isRepeat(List<List<Integer>> ans, List<Integer> subList ){
-        for (List<Integer> ele : ans){
-            if (ele.containsAll(subList)){
+    private static boolean isRepeat(List<List<Integer>> ans, List<Integer> subList) {
+        for (List<Integer> ele : ans) {
+            if (ele.containsAll(subList)) {
                 return true;
             }
         }
@@ -275,7 +273,8 @@ public class TwoSum {
         return result;
     }
 
-    public static void customRecur(List<List<Integer>> result, List<Integer> candidate, int[] candidates, int pos, Integer currentSum, Integer targetSum) {
+    public static void customRecur(List<List<Integer>> result, List<Integer> candidate, int[] candidates, int pos, Integer currentSum,
+                                   Integer targetSum) {
         if (currentSum == targetSum) {
             result.add(new ArrayList<>(candidate));
             return;
@@ -286,9 +285,9 @@ public class TwoSum {
                 return;
             }
             candidate.add(candidates[i]);
-            customRecur(result, candidate, candidates, i+1, tempSum, targetSum);
+            customRecur(result, candidate, candidates, i + 1, tempSum, targetSum);
             candidate.remove(candidate.size() - 1);
-            while (i + 1 < candidates.length && candidates[i] == candidates[i+1]) {
+            while (i + 1 < candidates.length && candidates[i] == candidates[i + 1]) {
                 i += 1;
             }
         }
