@@ -42,7 +42,23 @@ public class MinWindow {
         return result;
     }
 
+    private static boolean isAnagram(String src, String dest) {
+        HashMap<Character, Integer> countMap = new HashMap<>();
+        for (int i = 0; i < src.length(); i++) {
+            countMap.computeIfPresent(src.charAt(i), (k, v) -> v + 1);
+            countMap.computeIfAbsent(src.charAt(i), k -> 1);
+        }
+        for (int i = 0; i < dest.length(); i++) {
+            if (!countMap.containsKey(dest.charAt(i))) {
+                return false;
+            }
+            countMap.computeIfPresent(dest.charAt(i), (k, v) -> v == 1 ? null : v - 1);
+        }
+        return countMap.isEmpty();
+    }
+
     public static void main(String[] args) {
         System.out.println(minWindow("ADOBECODEBANC", "ABC"));
+        String test = "aaa";
     }
 }

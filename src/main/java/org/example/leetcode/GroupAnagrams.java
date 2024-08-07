@@ -36,5 +36,13 @@ public class GroupAnagrams {
         String[] test = new String[]{"bd","aacc"};
         List<List<String>> result = groupAnagrams(test);
         result.forEach(System.out::println);
+        // convert result to array
+        List<List<Integer>> list = new ArrayList<>();
+        list.add(Arrays.asList(1,2));
+        list.add(Arrays.asList(3,4));
+        int[][] temp = list.stream()
+                .map(item -> item.stream().mapToInt(Integer::intValue).toArray())
+                .toArray(int[][]::new);
+        System.out.println(Arrays.deepToString(temp));
     }
 }
