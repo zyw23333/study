@@ -41,10 +41,6 @@ public class MergeIntervals {
         for (int[] ints : result) {
             System.out.println(ints[0] + " " + ints[1]);
         }
-        String tes = "a///c/";
-        System.out.println(tes.replaceAll("/+", "/"));
-        List<String> test = new ArrayList<>();
-        test.add("bbb");
-        System.out.println(test.remove(test.size() - 1));;
+
     }
 }
