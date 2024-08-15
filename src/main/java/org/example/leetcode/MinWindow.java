@@ -6,7 +6,7 @@ import java.util.HashMap;
  * give two string s & t, find the min window in s which will contain all the characters in t
  * @Date 2024/8/6
  * @Author zhang
- * If any question, please mail zhang_yiwei@trip.com
+ * If any question, please mail infozyw@gmail.com
  **/
 public class MinWindow {
     public static String minWindow(String s, String t) {

@@ -6,7 +6,7 @@ import java.util.*;
  * merge overlapping intervals in intervals array
  * @Date 2024/8/7
  * @Author zhang
- * If any question, please mail zhang_yiwei@trip.com
+ * If any question, please mail infozyw@gmail.com
  **/
 public class MergeIntervals {
     public static int[][] merge(int[][] intervals) {

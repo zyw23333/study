@@ -6,7 +6,7 @@ import org.example.configuration.ListNode;
  * reverse node between m pos and n pos in a linked-list
  * @Date 2024/8/8
  * @Author zhang
- * If any question, please mail zhang_yiwei@trip.com
+ * If any question, please mail infozyw@gmail.com
  **/
 public class ReverseBetween {
     public ListNode reverseBetween(ListNode head, int left, int right) {

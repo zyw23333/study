@@ -5,7 +5,7 @@ package org.example.leetcode;
  * 奇偶不平衡的排在最后
  * @Date 2024/8/3
  * @Author zhang
- * If any question, please mail zhang_yiwei@trip.com
+ * If any question, please mail infozyw@gmail.com
  **/
 public class NumCompare {
     public static void main(String[] args) {

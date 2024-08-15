@@ -35,8 +35,8 @@ public class SearchRange {
     }
 
     public static void main(String[] args) {
-        int[] test = new int[]{5,7,7,8,8,10};
-        int[] result = searchRange(test, 5);
+        int[] test = new int[]{1,2,3};
+        int[] result = searchRange(test, 2);
         for (int i : result) {
             System.out.println(i);
         }

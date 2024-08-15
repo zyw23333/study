@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * @Date 2024/8/9
  * @Author zhang
- * If any question, please mail zhang_yiwei@trip.com
+ * If any question, please mail infozyw@gmail.com
  **/
 public class Connect {
     public static Node connect(Node root) {

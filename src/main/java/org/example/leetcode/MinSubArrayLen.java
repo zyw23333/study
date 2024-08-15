@@ -8,7 +8,7 @@ import java.util.HashMap;
  * find the min length of sub Array which sum is greater than or equal to target
  * @Date 2024/8/6
  * @Author zhang
- * If any question, please mail zhang_yiwei@trip.com
+ * If any question, please mail infozyw@gmail.com
  **/
 public class MinSubArrayLen {
     public static int minSubArrayLen(int target, int[] nums) {

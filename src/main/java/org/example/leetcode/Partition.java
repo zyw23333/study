@@ -11,7 +11,7 @@ import java.util.Arrays;
  * left and right should keep the original order
  * @Date 2024/8/8
  * @Author zhang
- * If any question, please mail zhang_yiwei@trip.com
+ * If any question, please mail infozyw@gmail.com
  **/
 public class Partition {
     public static ListNode partition(ListNode head, int x) {

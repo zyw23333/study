@@ -7,7 +7,7 @@ import java.util.List;
  * merge two sored array into one sorted array
  * @Date 2024/8/3
  * @Author zhang
- * If any question, please mail zhang_yiwei@trip.com
+ * If any question, please mail infozyw@gmail.com
  **/
 public class MergeSortedArray {
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
