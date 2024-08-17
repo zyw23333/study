@@ -1,7 +1,5 @@
 package org.example.configuration;
 
-import org.example.leetcode.AddTwoNumbers;
-
 public class ListNode {
     public int val;
     public ListNode next;

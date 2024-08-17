@@ -1,15 +1,8 @@
 package org.example.Service;
 
+import org.example.configuration.ListNode;
+
 public class Test {
-    public static class ListNode {
-        public int val;
-        public ListNode next;
-
-        ListNode(int val) {
-            this.val = val;
-        }
-    }
-
     public static ListNode reverse(ListNode head, int m, int n) {
         ListNode copyHead = head;
         ListNode other = new ListNode(-1); //dummy

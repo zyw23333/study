@@ -1,31 +1,42 @@
 package org.example.leetcode;
 
+import java.util.HashMap;
+
 /**
- * leetcode 209 长度最小的子数组
- */
+ * give a target num and array,
+ * find the min length of sub Array which sum is greater than or equal to target
+ * @Date 2024/8/6
+ * @Author zhang
+ * If any question, please mail infozyw@gmail.com
+ **/
 public class MinSubArrayLen {
     public static int minSubArrayLen(int target, int[] nums) {
-        int n = nums.length;
-        if (n == 0) {
+        if (nums.length == 0) {
             return 0;
         }
-        int ans = Integer.MAX_VALUE;
-        int start = 0, end = 0;
-        int sum = 0;
-        while (end < n) {
-            sum += nums[end];
-            while (sum >= target) {
-                ans = Math.min(ans, end - start + 1);
-                sum -= nums[start];
-                start++;
+        int left = 0, right = 0, sum = 0, result = Integer.MAX_VALUE;
+        while(left < nums.length) {
+            if (sum < target) {
+                if (right < nums.length) {
+                    sum += nums[right++];
+                    continue;
+                }
+                break;
             }
-            end++;
+            while (sum >= target) {
+                result = Math.min(result, right - left);
+                sum -= nums[left++];
+            }
         }
-        return ans == Integer.MAX_VALUE ? 0 : ans;
+        return result == Integer.MAX_VALUE ? 0 : result;
     }
 
     public static void main(String[] args) {
-        int[] input = new int[]{1,2,3,4,5};
-        System.out.println(minSubArrayLen(11, input));
+        int[] nums = new int[]{12,28,83,4,25,26,25,2,25,25,25,12};
+        System.out.println(minSubArrayLen(213, nums));
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(1, 1);
+        map.computeIfAbsent(2, k -> 1);
+        System.out.println(map.size());
     }
 }
